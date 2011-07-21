@@ -98,4 +98,49 @@ rspec /Users/sarah/.rvm/gems/ruby-1.9.2-p290@remarkable_rails3/gems/remarkable-4
 rake aborted!
 ruby -S bundle exec rspec ./spec/models/person_spec.rb failed
 
+--- copied email validation from ActiveRecord docs... all good.
+
+Now let's add an association!
+
+describe Person do
+  should_validate_length_of :name, :within => 3..40
+  should_allow_values_for :email, "sarah@foo.com"
+  should_not_allow_values_for :email, "sarah", "@foo", "whatever.com"
+  should_have_many :addresses
+end
+
+$ rake spec
+/Users/sarah/.rvm/rubies/ruby-1.9.2-p290/bin/ruby -S bundle exec rspec ./spec/models/person_spec.rb
+...F
+
+Failures:
+
+  1) Person 
+     Failure/Error: send(should_or_should_not, send(method, *args, &block))
+       Expected Person records have many addresses, but the association does not exist
+     # ./spec/models/person_spec.rb:7:in `block in <top (required)>'
+     # ./spec/models/person_spec.rb:3:in `<top (required)>'
+
+Finished in 0.32615 seconds
+4 examples, 1 failure
+
+$ rails g model address street:string person:belongs_to
+      invoke  active_record
+      create    db/migrate/20110721161741_create_addresses.rb
+      create    app/models/address.rb
+      invoke    rspec
+      create      spec/models/address_spec.rb
+$ rake db:migrate
+
+.
+
+Pending:
+  Address add some examples to (or delete) /Users/sarah/src/mv/experiment/remarkable_app/spec/models/address_spec.rb
+    # Not Yet Implemented
+    # ./spec/models/address_spec.rb:4
+
+Finished in 0.2998 seconds
+5 examples, 0 failures, 1 pending
+
+the rest is left as an exercise for the reader
 
