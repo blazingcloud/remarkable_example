@@ -32,5 +32,70 @@ Finished in 0.00026 seconds
 
 yay!
 
+describe Person do
+  should_validate_length_of :name, :within => 3..40
+end
+
+
+$ rake spec
+/Users/sarah/.rvm/rubies/ruby-1.9.2-p290/bin/ruby -S bundle exec rspec ./spec/models/person_spec.rb
+F
+
+Failures:
+
+  1) Person 
+     Failure/Error: send(should_or_should_not, send(method, *args, &block))
+       Expected Person to be invalid when name length is less than 3 characters
+     # ./spec/models/person_spec.rb:4:in `block in <top (required)>'
+     # ./spec/models/person_spec.rb:3:in `<top (required)>'
+
+Finished in 0.30367 seconds
+1 example, 1 failure
+
+Failed examples:
+
+rspec /Users/sarah/.rvm/gems/ruby-1.9.2-p290@remarkable_rails3/gems/remarkable-4.0.0.alpha4/lib/remarkable/core/macros.rb:26 # Person 
+rake aborted!
+ruby -S bundle exec rspec ./spec/models/person_spec.rb failed
+
+
+class Person < ActiveRecord::Base
+  validates_length_of :name, :within => 3..40
+end
+
+$ rake spec
+/Users/sarah/.rvm/rubies/ruby-1.9.2-p290/bin/ruby -S bundle exec rspec ./spec/models/person_spec.rb
+.
+
+Finished in 0.27601 seconds
+1 example, 0 failures
+
+
+describe Person do
+  should_validate_length_of :name, :within => 3..40
+  should_allow_values_for :email, "sarah@foo.com"
+  should_not_allow_values_for :email, "sarah", "@foo", "whatever.com"
+end
+
+$ rake spec
+/Users/sarah/.rvm/rubies/ruby-1.9.2-p290/bin/ruby -S bundle exec rspec ./spec/models/person_spec.rb
+..F
+
+Failures:
+
+  1) Person 
+     Failure/Error: send(should_or_should_not, send(method, *args, &block))
+       Did not expect Person to be valid when email is set to "sarah"
+     # ./spec/models/person_spec.rb:6:in `block in <top (required)>'
+     # ./spec/models/person_spec.rb:3:in `<top (required)>'
+
+Finished in 0.29054 seconds
+3 examples, 1 failure
+
+Failed examples:
+
+rspec /Users/sarah/.rvm/gems/ruby-1.9.2-p290@remarkable_rails3/gems/remarkable-4.0.0.alpha4/lib/remarkable/core/macros.rb:26 # Person 
+rake aborted!
+ruby -S bundle exec rspec ./spec/models/person_spec.rb failed
 
 

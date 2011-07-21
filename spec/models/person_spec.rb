@@ -1,5 +1,7 @@
 require 'spec_helper'
 
 describe Person do
-  pending "add some examples to (or delete) #{__FILE__}"
+  should_validate_length_of :name, :within => 3..40
+  should_allow_values_for :email, "sarah@foo.com"
+  should_not_allow_values_for :email, "sarah", "@foo", "whatever.com"
 end
