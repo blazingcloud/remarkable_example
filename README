@@ -14,4 +14,23 @@ rails g rspec:install
 
 edit spec/spec_helper.rb to include:
     require 'remarkable/active_record'
-  
+ 
+rails g model person name:string email:string
+rake db:migrate
+rake spec
+
+/Users/sarah/.rvm/rubies/ruby-1.9.2-p290/bin/ruby -S bundle exec rspec ./spec/models/person_spec.rb
+*
+
+Pending:
+  Person add some examples to (or delete) /Users/sarah/src/mv/experiment/remarkable_app/spec/models/person_spec.rb
+    # Not Yet Implemented
+    # ./spec/models/person_spec.rb:4
+
+Finished in 0.00026 seconds
+1 example, 0 failures, 1 pending
+
+yay!
+
+
+
