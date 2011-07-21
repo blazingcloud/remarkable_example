@@ -24,8 +24,9 @@ gem 'jquery-rails'
 # To use debugger
 # gem 'ruby-debug'
 
-
 group :development, :test do
+  gem "rspec", "2.6.0"
   gem "rspec-rails", "2.6.1"
-  gem "remarkable", "3.1.13"
+  gem "remarkable_activerecord", "4.0.0.alpha4"
 end
+

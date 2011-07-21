@@ -3,10 +3,15 @@ cd remarkable_app
 
 add to Gemfile:
 
-group :development, :test do
-  gem "rspec"
-  gem "rspec-rails"
-  gem "remarkable_activerecord"
-end
+    group :development, :test do
+      gem "rspec", "2.6.0"
+      gem "rspec-rails", "2.6.1"
+      gem "remarkable_activerecord", "4.0.0.alpha4"
+    end
+
 
 rails g rspec:install
+
+edit spec/spec_helper.rb to include:
+    require 'remarkable/active_record'
+  
